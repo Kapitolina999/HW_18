@@ -18,8 +18,8 @@ class GenresView(Resource):
 
     def post(self):
         new_genre = request.json
-
-        return genre_service.create(new_genre), 201
+        genre_service.create(new_genre)
+        return '', 201
 
 
 @genre_ns.route('/<int:gid>')
@@ -30,7 +30,10 @@ class GenreView(Resource):
 
     def put(self, gid):
         data_genre = request.json
-        return genre_service.update(gid, data_genre), 201
+        data_genre['id'] = gid
+        genre_service.update(data_genre)
+        return '', 201
 
     def delete(self, gid):
-        return genre_service.delete(gid), 204
+        genre_service.delete(gid)
+        return '', 204

@@ -11,7 +11,8 @@ class GenreService:
     def create(self, data):
         return self.dao.create(data)
 
-    def update(self, gid, data):
+    def update(self, data):
+        gid = data['id']
         genre = self.get(gid)
         genre.name = data['name']
 

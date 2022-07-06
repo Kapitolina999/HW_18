@@ -5,10 +5,10 @@ class DirectorDAO:
     def __init__(self, session):
         self.session = session
 
-    def get_one(self, did):
-        return self.session.query(Director).get(did)
+    def get(self, did=None):
+        if did:
+            return self.session.query(Director).get(did)
 
-    def get_all(self):
         return self.session.query(Director).all()
 
     def create(self, data):
@@ -26,6 +26,6 @@ class DirectorDAO:
         return director
 
     def delete(self, did):
-        director = self.get_one(did)
+        director = self.get(did)
         self.session.delete(director)
         self.session.commit()

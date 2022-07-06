@@ -14,25 +14,27 @@ directors_schema = DirectorSchema(many=True)
 class DirectorsView(Resource):
     def get(self):
 
-        all_director = director_service.get_all()
+        all_director = director_service.get()
         return directors_schema.dump(all_director), 200
 
     def post(self):
         new_director = request.json
         director_service.create(new_director)
-        return director_service.create(new_director), 201
+        return '', 201
 
 
 @director_ns.route('/<int:did>')
 class DirectorView(Resource):
     def get(self, did):
-        director = director_service.get_one(did)
+        director = director_service.get(did)
         return director_schema.dump(director), 200
 
     def put(self, did):
         data_director = request.json
-        did = data_director['id']
-        return director_service.update(data_director), 201
+        data_director['id'] = did
+        director_service.update(data_director)
+        return '', 201
 
     def delete(self, did):
-        return director_service.delete(did), 204
+        director_service.delete(did)
+        return '', 204

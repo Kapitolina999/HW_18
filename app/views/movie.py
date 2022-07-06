@@ -34,11 +34,16 @@ class MovieView(Resource):
 
     def put(self, mid):
         data_movie = request.json
-        return movie_service.update(mid, data_movie), 201
+        data_movie['id'] = mid
+        movie_service.update(data_movie)
+        return '', 201
 
     def patch(self, mid):
         data_movie = request.json
-        return movie_service.update_partial(mid, data_movie), 201
+        data_movie['id'] = mid
+        movie_service.update_partial(data_movie)
+        return '', 201
 
     def delete(self, mid):
-        return movie_service.delete(mid), 204
+        movie_service.delete(mid)
+        return '', 204
