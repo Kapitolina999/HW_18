@@ -5,16 +5,8 @@ class MovieDAO:
     def __init__(self, session):
         self.session = session
 
-    # def get_one(self, mid):
-    #     return self.session.query(Movie).get(mid)
-    #
-    # def get_all(self):
-    #     movies = self.session.query(Movie)
-    #
-    #     return movies.all()
-
     # Вернет все фильмы или фильм по заданному mid
-    def get(self, mid, did, gid, year):
+    def get(self, mid=None, did=None, gid=None, year=None):
         if mid:
             return self.session.query(Movie).get(mid)
         if did:
@@ -41,7 +33,7 @@ class MovieDAO:
         return movie
 
     def delete(self, mid):
-        movie = self.get_one(mid)
+        movie = self.get(mid)
         self.session.delete(movie)
         self.session.commit()
 
